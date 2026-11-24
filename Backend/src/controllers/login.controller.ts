@@ -1,0 +1,18 @@
+import { Request, Response } from 'express';
+import { LoginModel } from '../models/login.models';
+
+export const login = async (req: Request, res: Response) => {
+  const { usuario, contrasena } = req.body;
+
+  const user = await LoginModel.validar(usuario, contrasena);
+
+  if (!user) {
+    return res.status(401).json({
+      message: 'Usuario o contraseña incorrectos'
+    });
+  }
+
+  res.json({
+    message: 'Inicio de sesión exitoso'
+  });
+};
