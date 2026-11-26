@@ -1,16 +1,17 @@
-import { loginDB } from '../config/login.config';
-
+import { pool } from '../config/db';
+ 
 export interface Login {
   usuario: string;
-  contrasena: string;
+  password: string;
 }
-
+ 
 export const LoginModel = {
-  validar: async (usuario: string, contrasena: string) => {
-    const user = loginDB.find(
-      (user) => user.usuario === usuario && user.contrasena === contrasena
+  validar: async (usuario: string, password: string) => {
+    const { rows } = await pool.query(
+      'SELECT id, usuario FROM usuarios WHERE usuario = $1 AND password = $2',
+      [usuario, password]
     );
-
-    return user || null;
+  
+    return rows[0] || null;
   },
 };

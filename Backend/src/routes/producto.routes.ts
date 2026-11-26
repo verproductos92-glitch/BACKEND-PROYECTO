@@ -1,0 +1,19 @@
+
+import { Router } from 'express';
+import {
+  obtenerProducto,
+  obtenerProductoPorId,
+  crearProducto,
+  actualizarProducto,
+  eliminarProducto
+} from '../controllers/producto.controller';
+
+const router = Router();
+
+router.get('/', obtenerProducto);
+router.get('/:id', obtenerProductoPorId);
+router.post('/', crearProducto);
+router.put('/:id', actualizarProducto);
+router.delete('/:id', eliminarProducto);
+
+export default router;
